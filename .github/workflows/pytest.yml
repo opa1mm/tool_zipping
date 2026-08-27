@@ -28,6 +28,6 @@ jobs:
       - name: Activate venv and run pytest
         shell: bash
         run: |
-          source .venv/bin/activate.fish
+          source .venv/bin/activate
           pytest test_zip_operations.py -v
  
