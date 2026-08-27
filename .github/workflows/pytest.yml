@@ -1,1 +1,33 @@
-
+name: Tests
+ 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+ 
+jobs:
+  test:
+    runs-on: self-hosted
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+ 
+      - name: Install required Python version
+        run: uv python install
+ 
+      - name: Create venv and install dependencies
+        run: uv sync
+ 
+      - name: Activate venv and run pytest
+        shell: bash
+        run: |
+          source .venv/bin/activate.fish
+          pytest test_zip_operations.py -v
+ 
